@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<link rel="stylesheet" type="text/css" href="./style.css">
+<link href="/assets/style.css" rel="stylesheet">
 <!--Import Google Icon Font-->
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <!-- Compiled and minified CSS -->
@@ -13,6 +13,7 @@
 
 <body>
     <div class="container">
+        <div id='app'></div>
         <h1 class="center">Prono<br><span class="subtitle">〜発音確認アプリ〜</span></h1>
         <div id='speechIndeterminate' class="progress">
             <div class="indeterminate"></div>
@@ -44,7 +45,13 @@
 
         <!-- TODO 認識した文字を表示するようにする -->
         <p id='recognizeText'></p>
-
+        <div class="divider"></div>
+        <div class="section sentence">
+            <h5 class='text'>My name is Hanako Yamada, and I will be staying at your house from January
+                2nd</h5>
+            </h5>
+            <h5 class='input translucent'></h5>
+        </div>
         <div class="divider"></div>
         <div class="section sentence activeSection">
             <h5 id='correctText' class='text'>My name is Hanako Yamada, and I will be staying at your house from January
@@ -73,10 +80,10 @@
             <h5 class='input translucent'></h5>
         </div>
         <div class="divider"></div>
-        <script src="./recognize.js"></script>
-        <script src="./correction.js"></script>
-        <!-- Compiled and minified JavaScript -->
+        <script src="/assets/recognize.js"></script>
+        <script src="/assets/correction.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <script src="./bundle.js"></script>
 
     </div>
 </body>

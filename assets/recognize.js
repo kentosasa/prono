@@ -1,4 +1,10 @@
 SpeechRecognition = webkitSpeechRecognition || SpeechRecognition;
+if ('SpeechRecognition' in window) {
+    console.log('SpeechRecognitionに対応ブラウザ')
+} else {
+    alert('申し訳ありません。お使いのブラウザはサービスに対応していません')
+}
+
 const recognition = new SpeechRecognition();
 const recognizeText = document.getElementById('recognizeText');
 const startBtn = document.getElementById('startBtn');
@@ -29,8 +35,6 @@ const startSppechRecognizeSetup = () => {
     recognition.onnomatch = recognizeNoMatch;
     recognition.onerror = recognizeError;
     recognition.onsoundend = recognizeSoundend;
-
-    // recognition.start();
 }
 
 const recognizeListener = (event) => {
@@ -39,7 +43,7 @@ const recognizeListener = (event) => {
         let transcript = event.results[i][0].transcript;
         finalTranscript += transcript;
     }
-    console.log(finalTranscript);
+    console.log("音声認識成功: " + finalTranscript);
     recognizeText.innerHTML = finalTranscript;
 }
 
@@ -51,7 +55,8 @@ const recognizeNoMatch = () => {
     statusText.innerHTML = "もう一度試してください";
     speechIndeterminate.style.visibility = "hidden";
 }
-const recognizeError = () => {
+const recognizeError = (event) => {
+    console.log('SpeechRecognition Error: ' + event.error);
     statusText.innerHTML = "エラー";
     speechIndeterminate.style.visibility = "hidden";
 }
