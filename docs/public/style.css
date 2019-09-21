@@ -1,0 +1,43 @@
+.center {
+    text-align: center;
+}
+.space {
+    height: 32px;
+    width: 32px;
+}
+
+.space-96 {
+    height: 96px;
+    width: 96px;
+}
+.subtitle {
+    font-size: 0.3em;
+}
+
+.translucent {
+    opacity: 0.3;   
+}
+.flex {
+    display: flex;
+    justify-content: center; /* 子要素をflexboxにより中央に配置する */
+    align-items: center;  /* 子要素をflexboxにより中央に配置する */    
+}
+.divider {
+    margin: 16px 0px;
+}
+.sentence {
+    padding-left: 16px;
+}
+.activeSection {
+    border-left:8px solid #e91e63;
+}
+.activeSection > .text{
+    font-weight: bold;
+}
+
+#fixBtn {
+    position: fixed;
+    margin: 32px;
+    bottom: 32px;
+    right: 32px;
+}

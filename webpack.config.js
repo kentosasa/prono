@@ -1,7 +1,7 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const path = require("path");
 const SRC_DIR = path.resolve(__dirname, "src");
-const BUILD_DIR = path.resolve(__dirname, "dist");
+const BUILD_DIR = path.resolve(__dirname, "docs");
 module.exports = {
     entry: path.join(SRC_DIR, "index.jsx"),
     module: {
