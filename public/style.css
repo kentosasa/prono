@@ -5,6 +5,11 @@
     height: 32px;
     width: 32px;
 }
+
+.space-96 {
+    height: 96px;
+    width: 96px;
+}
 .subtitle {
     font-size: 0.3em;
 }
@@ -28,4 +33,11 @@
 }
 .activeSection > .text{
     font-weight: bold;
+}
+
+#fixBtn {
+    position: fixed;
+    margin: 32px;
+    bottom: 32px;
+    right: 32px;
 }
