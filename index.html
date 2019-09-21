@@ -13,77 +13,7 @@
 
 <body>
     <div id='app'></div>
-    <div class="container">
-        <h1 class="center">Prono<br><span class="subtitle">〜発音確認アプリ〜</span></h1>
-        <div id='speechIndeterminate' class="progress">
-            <div class="indeterminate"></div>
-        </div>
-
-        <div class="divider"></div>
-        <div class="section">
-            <h5>Pronoとは</h5>
-            <p>
-                このサービスは英文を実際に読み上げて自分の発音を機械が正しく認識できるか確認するサービスです<br>
-                機械が認識できるような発音であるならば、正しい英語と言えるのではないかという考えの元作られています
-            </p>
-            <div class="space"></div>
-            <h5>Pronoの使い方</h5>
-            <p>
-                STARTボタンを押すと音声認識が開始します<br>
-                開始ボタンを押した後に左側が赤くなっている英文を読み上げてください<br>
-                一時縦断したいときはSTOPボタンを押してください
-            </p>
-        </div>
-        <div class="divider"></div>
-        <h5 class="center" id='status' class="light"></h5>
-        <div class="section">
-            <a class='waves-effect waves-light pink btn' id="startBtn">start</a>
-            <a class='waves-effect waves-light pink  lighten-3 btn' id='stopBtn'>stop</a>
-            <a class='waves-effect waves-light pink btn' id='correctionBtn'>correctionBtn</a>
-            <a class='waves-effect waves-light pink  lighten-3 btn' id='resetCorrectionBtn'>resetCorrectionBtn</a>
-        </div>
-
-        <!-- TODO 認識した文字を表示するようにする -->
-        <p id='recognizeText'></p>
-        <div class="divider"></div>
-        <div class="section sentence">
-            <h5 class='text'>My name is Hanako Yamada, and I will be staying at your house from January
-                2nd</h5>
-            </h5>
-            <h5 class='input translucent'></h5>
-        </div>
-        <div class="divider"></div>
-        <div class="section sentence activeSection">
-            <h5 id='correctText' class='text'>My name is Hanako Yamada, and I will be staying at your house from January
-                2nd</h5>
-            <h5 id='inputText' class='input translucent'>My name is Hanako Yamada, and I will be staying at your house
-                from January 2nd
-            </h5>
-        </div>
-        <div class="divider"></div>
-        <div class="section sentence">
-            <h5 class='text'>My name is Hanako Yamada, and I will be staying at your house from January
-                2nd</h5>
-            </h5>
-            <h5 class='input translucent'></h5>
-        </div>
-        <div class="divider"></div>
-        <div class="section sentence">
-            <h5 class='text'>My name is Hanako Yamada, and I will be staying at your house from January
-                2nd</h5>
-            <h5 class='input translucent'></h5>
-        </div>
-        <div class="divider"></div>
-        <div class="section sentence">
-            <h5 class='text'>My name is Hanako Yamada, and I will be staying at your house from January
-                2nd</h5>
-            <h5 class='input translucent'></h5>
-        </div>
-        <div class="divider"></div>
-        <script src="/public/recognize.js"></script>
-        <script src="/dist/bundle.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
 
 </html>

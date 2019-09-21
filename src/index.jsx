@@ -6,20 +6,65 @@ class App extends React.Component {
     constructor(props) {
         super(props)
         this.activeRef = React.createRef()
+        window.webkitSpeechRecognition || window.SpeechRecognition;
+        this.recognition = new webkitSpeechRecognition()
+        this.recognition.continuous = true
+        this.recognition.interimResults = true
+        this.recognition.lang = 'en-us'
+        this.recognition.onresult = this.recognizeListener
+        this.recognition.onerror = this.recognizeOnError
         this.state = {
             isRecognizing: false,
-            activeSentenceIndex: -1,
+            activeSentenceIndex: 0,
             sentences: [
                 { text: 'His job requires that he take an international English test.' },
                 { text: 'No man is an island, after all.' },
-                {
-                    text: 'Well, she was naturally nervous, but I insisted that it was the right thing to do.',
-                    input: 'well he Was natural nervous but i insisted that it was the right things to do',
-                },
+                { text: 'Well, she was naturally nervous, but I insisted that it was the right thing to do.' },
                 { text: 'I know that there is a flashlight in the kitchen drawer.' },
                 { text: 'You said you had no hobbies, but now look.' },
             ],
         }
+    }
+
+    recognizeListener = (event) => {
+        this.scrollToRef(this.activeRef)
+        let activeSentenceIndex = this.state.activeSentenceIndex
+        let finalTranscript = '';
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+            let transcript = event.results[i][0].transcript;
+            finalTranscript += transcript;
+        }
+
+
+        // TODO recognizer isFinalの確認
+        if (true) {
+            console.log('TODO recognizer isFinalの確認')
+            console.log(event.results[event.resultIndex])
+            this.moveNextSentence()
+        }
+
+
+        let sentences = this.state.sentences
+        sentences[this.state.activeSentenceIndex].input = 'well he Was natural nervous but i insisted that it was the right things to do'
+        this.setState({
+            sentences,
+            activeSentenceIndex,
+            isRecognizing: true
+        })
+        console.log("音声認識成功: " + finalTranscript);
+    }
+
+    recognizeOnSoundEnd = (event) => {
+        console.log('音声終了')
+    }
+
+    recognizeOnSoundEnd = (event) => {
+        console.log('音声終了')
+    }
+
+    recognizeOnError = (event) => {
+        this.setState({ isRecognizing: !this.state.isRecognizing })
+        alert('音声認識で問題が発生しました: ' + event.error)
     }
 
     scrollToRef(ref) {
@@ -28,9 +73,14 @@ class App extends React.Component {
         }
     }
 
+    moveNextSentence() {
+        // TODO activeの更新, recognizer の再起動
+        console.log('TODO activeの更新, recognizer の再起動')
+    }
+
     onClickDebug = () => {
         let sentences = this.state.sentences
-        let activeSentenceIndex = this.state.activeSentenceIndex < sentences.length - 1 ? this.state.activeSentenceIndex + 1 : this.state.activeSentenceIndex
+        let activeSentenceIndex = this.state.activeSentenceIndex < sentences.length - 1 ? this.state.activeSentenceIndex + 1 : 0
         let isRecognizing = !this.state.isRecognizing
         sentences[activeSentenceIndex].input = 'well he Was natural nervous but i insisted that it was the right things to do'
         this.setState({
@@ -40,8 +90,19 @@ class App extends React.Component {
         })
     }
 
-    componentDidUpdate() {
+    onClickStartRecord = () => {
         this.scrollToRef(this.activeRef)
+        this.recognition.start()
+        this.setState({
+            isRecognizing: true
+        })
+    }
+
+    onClickStopRecord = () => {
+        this.recognition.stop()
+        this.setState({
+            isRecognizing: false
+        })
     }
 
     render() {
@@ -50,7 +111,6 @@ class App extends React.Component {
                 <div className='btn' onClick={this.onClickDebug}>DEBUG</div>
                 <h1 className="center">Prono<br /><span className="subtitle">〜発音確認アプリ〜</span></h1>
                 {this.renderProgress()}
-                <div className="divider"></div>
                 <div className="section">
                     <h5>Pronoとは</h5>
                     <p>
@@ -65,8 +125,8 @@ class App extends React.Component {
                         一時縦断したいときはSTOPボタンを押してください
                     </p>
                 </div>
+                <div className='space-96'></div>
                 <div className="divider"></div>
-                <h3>英文</h3>
                 {this.state.sentences.map((value, index) => this.renderSentence(value, index))}
                 {this.renderActionBtn()}
             </div>
@@ -76,7 +136,7 @@ class App extends React.Component {
     renderSentence(value, index) {
         return (
             <div key={'sentence-' + index} ref={this.state.activeSentenceIndex == index ? this.activeRef : ''}>
-                <Sentence isActive={this.state.activeSentenceIndex == index} sentence={value} ></Sentence>
+                <Sentence isActive={this.state.activeSentenceIndex == index && this.state.isRecognizing} sentence={value} ></Sentence>
                 <div className='divider'></div>
             </div>
         )
@@ -87,17 +147,16 @@ class App extends React.Component {
             return (
                 <div className="progress">
                     <div className="indeterminate"></div>
-                </div>
-            )
+                </div>)
         }
-        return
+        return (<div className="divider"></div>)
     }
 
     renderActionBtn() {
         if (this.state.isRecognizing) {
-            return (<div id='fixBtn' onClick={this.onClickDebug} className=' btn-floating btn-large waves-effect waves-light red'><i className="material-icons">pause</i></div>)
+            return (<div id='fixBtn' onClick={this.onClickStopRecord} className=' btn-floating btn-large waves-effect waves-light red'><i className="material-icons">pause</i></div>)
         } else {
-            return (<div id='fixBtn' onClick={this.onClickDebug} className=' btn-floating btn-large waves-effect waves-light red'><i className="material-icons">play_arrow</i></div>)
+            return (<div id='fixBtn' onClick={this.onClickStartRecord} className=' btn-floating btn-large waves-effect waves-light red'><i className="material-icons">play_arrow</i></div>)
         }
     }
 }
