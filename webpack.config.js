@@ -1,6 +1,10 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
+const path = require("path");
+const ASSET_DIR = path.resolve(__dirname, "public");
+const SRC_DIR = path.resolve(__dirname, "src");
+const BUILD_DIR = path.resolve(__dirname, "dist");
 module.exports = {
-    entry: './src/index.jsx',
+    entry: path.join(SRC_DIR, "index.jsx"),
     module: {
         rules: [
             {
@@ -20,13 +24,14 @@ module.exports = {
             }
         ]
     },
-    devServer: {
-        publicPath: '/assets/'
+    output: {
+        path: BUILD_DIR,
+        filename: 'bundle.js'
     },
     plugins: [
         new HtmlWebPackPlugin({
-            template: "./src/index.html",
-            filename: "./dist/index.html"
+            template: "./index.html",
+            filename: "./index.html"
         })
     ]
 };

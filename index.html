@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<link href="/assets/style.css" rel="stylesheet">
+<link href="/public/style.css" rel="stylesheet">
 <!--Import Google Icon Font-->
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <!-- Compiled and minified CSS -->
@@ -12,8 +12,8 @@
 </head>
 
 <body>
+    <div id='app'></div>
     <div class="container">
-        <div id='app'></div>
         <h1 class="center">Prono<br><span class="subtitle">〜発音確認アプリ〜</span></h1>
         <div id='speechIndeterminate' class="progress">
             <div class="indeterminate"></div>
@@ -80,11 +80,9 @@
             <h5 class='input translucent'></h5>
         </div>
         <div class="divider"></div>
-        <script src="/assets/recognize.js"></script>
-        <script src="/assets/correction.js"></script>
+        <script src="/public/recognize.js"></script>
+        <script src="/dist/bundle.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-        <script src="./bundle.js"></script>
-
     </div>
 </body>
 

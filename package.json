@@ -4,8 +4,9 @@
   "description": "",
   "main": "correction.js",
   "scripts": {
-    "start": "webpack-dev-server --open --mode development -o bundle.js",
-    "build": "webpack --mode production -o bundle.js"
+    "start": "webpack-dev-server --open --mode development --watch-content-base --open-page ./index.html",
+    "develop": "webpack --mode development",
+    "production": "webpack --mode production"
   },
   "repository": {
     "type": "git",
@@ -26,6 +27,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.6.0",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
     "@babel/preset-env": "^7.6.0",
     "@babel/preset-react": "^7.0.0",
     "@babel/register": "^7.6.0",

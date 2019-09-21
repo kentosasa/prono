@@ -29,3 +29,10 @@
 .activeSection > .text{
     font-weight: bold;
 }
+
+#fixBtn {
+    position: fixed;
+    margin: 32px;
+    bottom: 32px;
+    right: 32px;
+}
