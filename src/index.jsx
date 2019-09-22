@@ -28,30 +28,16 @@ class App extends React.Component {
 
     recognizeListener = (event) => {
         this.scrollToRef(this.activeRef)
-        let activeSentenceIndex = this.state.activeSentenceIndex
-        let finalTranscript = '';
-        for (let i = event.resultIndex; i < event.results.length; i++) {
-            let transcript = event.results[i][0].transcript;
-            finalTranscript += transcript;
-        }
-
-
-        // TODO recognizer isFinalの確認
-        if (true) {
-            console.log('TODO recognizer isFinalの確認')
-            console.log(event.results[event.resultIndex])
-            this.moveNextSentence()
-        }
-
-
         let sentences = this.state.sentences
-        sentences[this.state.activeSentenceIndex].input = 'well he Was natural nervous but i insisted that it was the right things to do'
+        sentences[this.state.activeSentenceIndex].input = event.results[event.resultIndex][0].transcript
         this.setState({
             sentences,
-            activeSentenceIndex,
             isRecognizing: true
         })
-        console.log("音声認識成功: " + finalTranscript);
+        if (event.results[event.resultIndex].isFinal) {
+            this.moveNextSentence()
+        }
+        console.log("音声認識成功: " + event.results[event.resultIndex][0].transcript);
     }
 
     recognizeOnSoundEnd = (event) => {
@@ -74,19 +60,9 @@ class App extends React.Component {
     }
 
     moveNextSentence() {
-        // TODO activeの更新, recognizer の再起動
-        console.log('TODO activeの更新, recognizer の再起動')
-    }
-
-    onClickDebug = () => {
-        let sentences = this.state.sentences
-        let activeSentenceIndex = this.state.activeSentenceIndex < sentences.length - 1 ? this.state.activeSentenceIndex + 1 : 0
-        let isRecognizing = !this.state.isRecognizing
-        sentences[activeSentenceIndex].input = 'well he Was natural nervous but i insisted that it was the right things to do'
+        let activeSentenceIndex = this.state.activeSentenceIndex < this.state.sentences.length - 1 ? this.state.activeSentenceIndex + 1 : 0
         this.setState({
-            sentences,
             activeSentenceIndex,
-            isRecognizing
         })
     }
 
@@ -108,7 +84,6 @@ class App extends React.Component {
     render() {
         return (
             <div className="container">
-                <div className='btn' onClick={this.onClickDebug}>DEBUG</div>
                 <h1 className="center">Prono<br /><span className="subtitle">〜発音確認アプリ〜</span></h1>
                 {this.renderProgress()}
                 <div className="section">
