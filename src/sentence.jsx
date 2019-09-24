@@ -1,6 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types';
 
+// TODO Utilに切り出す
+// 大文字小文字を気にしない
+// 句読点は無視する
+const normalization = (str) => {
+    return str.toUpperCase().replace(/,|\./g, '')
+}
+
 export default class Sentence extends React.Component {
     constructor(props) {
         super(props)
@@ -33,7 +40,7 @@ export default class Sentence extends React.Component {
                 if (!inputWords[j] || !correctWords[i]) {
                     continue
                 }
-                if (this.normalization(inputWords[j]) == this.normalization(correctWords[i])) {
+                if (normalization(inputWords[j]) == normalization(correctWords[i])) {
                     match = true
                 }
             }
@@ -45,12 +52,6 @@ export default class Sentence extends React.Component {
             }
         }
         return (<div>{correctText}</div>)
-    }
-
-    // 大文字小文字を気にしない
-    // 句読点は無視する
-    normalization(str) {
-        return str.toUpperCase().replace(/,|\./g, '')
     }
 }
 
