@@ -2,6 +2,27 @@ import React from 'react'
 import Sentence from './sentence.jsx'
 import { render } from 'react-dom'
 
+// TODO util に切り出す
+const shuffle = (ary) => {
+    let j, x, i;
+    for (i = ary.length - 1; i > 0; i--) {
+        j = Math.floor(Math.random() * (i + 1));
+        x = ary[i];
+        ary[i] = ary[j];
+        ary[j] = x;
+    }
+    return ary;
+}
+
+
+// TODO domainに切り出す
+const fetchSentences = async () => {
+    return fetch(`./public/data.txt`)
+        .then(res => res.text())
+        .then(raw => raw.split('\n').map(row => { return { text: row } }))
+        .then(ary => { return shuffle(ary) })
+}
+
 class App extends React.Component {
     constructor(props) {
         super(props)
@@ -16,14 +37,7 @@ class App extends React.Component {
         this.state = {
             isRecognizing: false,
             activeSentenceIndex: 0,
-            sentences: [
-                { text: 'His job requires that he take an international English test.' },
-                { text: 'No man is an island, after all.' },
-                { text: 'Well, she was naturally nervous, but I insisted that it was the right thing to do.' },
-                { text: 'I know that there is a flashlight in the kitchen drawer.' },
-                { text: 'You said you had no hobbies, but now look.' },
-                { test: 'You’ll never find a rainbow if you’re looking down.' }
-            ],
+            sentences: [],
         }
     }
 
@@ -38,7 +52,6 @@ class App extends React.Component {
         if (event.results[event.resultIndex].isFinal) {
             this.moveNextSentence()
         }
-        console.log("音声認識成功: " + event.results[event.resultIndex][0].transcript);
     }
 
     recognizeOnSoundEnd = (event) => {
@@ -80,6 +93,14 @@ class App extends React.Component {
         this.setState({
             isRecognizing: false
         })
+    }
+
+    componentDidMount() {
+        this.loadSentences()
+    }
+
+    async loadSentences() {
+        this.setState({ sentences: await fetchSentences() })
     }
 
     render() {
