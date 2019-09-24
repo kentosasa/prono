@@ -23,12 +23,13 @@ const fetchSentences = async () => {
         .then(ary => { return shuffle(ary) })
 }
 
+
 class App extends React.Component {
     constructor(props) {
         super(props)
         this.activeRef = React.createRef()
-        window.webkitSpeechRecognition || window.SpeechRecognition;
-        this.recognition = new webkitSpeechRecognition()
+        window.webkitSpeechRecognition || window.SpeechRecognition
+        this.recognition = new webkitSpeechRecognition() // eslint-disable-line
         this.recognition.continuous = true
         this.recognition.interimResults = true
         this.recognition.lang = 'en-us'
@@ -52,14 +53,6 @@ class App extends React.Component {
         if (event.results[event.resultIndex].isFinal) {
             this.moveNextSentence()
         }
-    }
-
-    recognizeOnSoundEnd = (event) => {
-        console.log('音声終了')
-    }
-
-    recognizeOnSoundEnd = (event) => {
-        console.log('音声終了')
     }
 
     recognizeOnError = (event) => {

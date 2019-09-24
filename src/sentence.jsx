@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types';
 
 export default class Sentence extends React.Component {
     constructor(props) {
@@ -50,5 +51,13 @@ export default class Sentence extends React.Component {
     // 句読点は無視する
     normalization(str) {
         return str.toUpperCase().replace(/,|\./g, '')
+    }
+}
+
+Sentence.propTypes = {
+    isActive: PropTypes.bool,
+    sentence: {
+        text: PropTypes.string.isRequired,
+        input: PropTypes.string
     }
 }
