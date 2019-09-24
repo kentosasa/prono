@@ -22,6 +22,7 @@ class App extends React.Component {
                 { text: 'Well, she was naturally nervous, but I insisted that it was the right thing to do.' },
                 { text: 'I know that there is a flashlight in the kitchen drawer.' },
                 { text: 'You said you had no hobbies, but now look.' },
+                { test: 'You’ll never find a rainbow if you’re looking down.' }
             ],
         }
     }
