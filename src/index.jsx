@@ -28,13 +28,18 @@ class App extends React.Component {
     constructor(props) {
         super(props)
         this.activeRef = React.createRef()
-        window.webkitSpeechRecognition || window.SpeechRecognition
-        this.recognition = new webkitSpeechRecognition() // eslint-disable-line
-        this.recognition.continuous = true
-        this.recognition.interimResults = true
-        this.recognition.lang = 'en-us'
-        this.recognition.onresult = this.recognizeListener
-        this.recognition.onerror = this.recognizeOnError
+        try {
+            window.webkitSpeechRecognition || window.SpeechRecognition
+            this.recognition = new webkitSpeechRecognition() // eslint-disable-line
+            this.recognition.continuous = true
+            this.recognition.interimResults = true
+            this.recognition.lang = 'en-us'
+            this.recognition.onresult = this.recognizeListener
+            this.recognition.onerror = this.recognizeOnError
+        } catch{
+            console.log('対応していないブラウザです。')
+            alert('対応していないブラウザです。Chromeを使用してください')
+        }
         this.state = {
             isRecognizing: false,
             activeSentenceIndex: 0,
